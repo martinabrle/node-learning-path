@@ -1,2 +1,2 @@
 # node-learning-path
-Archive of Microsoft Docs learning path
+Archive code from following the Microsoft Docs learning path
