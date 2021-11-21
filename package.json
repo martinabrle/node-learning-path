@@ -1,0 +1,21 @@
+{
+  "name": "node-learning-path-api",
+  "version": "1.0.0",
+  "description": "A HTTP API, which fetches items from a database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinabrle/node-learning-path.git"
+  },
+  "keywords": ["api", "database"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinabrle/node-learning-path/issues"
+  },
+  "homepage": "https://github.com/martinabrle/node-learning-path#readme"
+}

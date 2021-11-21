@@ -1,0 +1,12 @@
+#check the Beginner's series at https://docs.microsoft.com/en-us/shows/Beginners-Series-to-NodeJS/
+#learning path at https://docs.microsoft.com/en-us/learn/paths/build-javascript-applications-nodejs/
+#basic project at https://github.com/MicrosoftDocs/node-essentials/
+#npm (package manager for node) registry at http://npmjs.org
+
+npm init [-y] #generate package.json file, containing meta-information, dependencies, devDependencies and scripts
+npm --help #obviously
+npm list #list dependencies
+npm list --depth 0 #list dependencies of the first level (depth) = stuff I installed
+npm uninstall <dependency> #uninstall
+npm prune #removes all what's not in the package.json
+npm install jest --save-dev #install a dependency as a dev only dependency
