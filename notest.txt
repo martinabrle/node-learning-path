@@ -7,6 +7,8 @@ npm init [-y] #generate package.json file, containing meta-information, dependen
 npm --help #obviously
 npm list #list dependencies
 npm list --depth 0 #list dependencies of the first level (depth) = stuff I installed
+npm run ... #runs ..., for example npm run test, npm run start (equals npm test or npm start)
 npm uninstall <dependency> #uninstall
 npm prune #removes all what's not in the package.json
 npm install jest --save-dev #install a dependency as a dev only dependency
+npm update, npm outdated, npm audit, npm audit fix #...

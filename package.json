@@ -4,18 +4,28 @@
   "description": "A HTTP API, which fetches items from a database",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/martinabrle/node-learning-path.git"
   },
-  "keywords": ["api", "database"],
+  "keywords": [
+    "api",
+    "database"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/martinabrle/node-learning-path/issues"
   },
-  "homepage": "https://github.com/martinabrle/node-learning-path#readme"
+  "homepage": "https://github.com/martinabrle/node-learning-path#readme",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }
