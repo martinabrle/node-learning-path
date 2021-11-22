@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A HTTP API, which fetches items from a database",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "start": "node ./src/index.js"
