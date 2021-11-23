@@ -13,5 +13,3 @@ npm prune #removes all what's not in the package.json
 npm install jest --save-dev #install a dependency as a dev only dependency
 npm update, npm outdated, npm audit, npm audit fix #...
 node inspect hello-world.js, node inspect-brk hello-world.js  to start in debug mode
-
-Edsger Dijkstra : "If debugging is the process of removing bugs, then programming must be the process of putting them in."
