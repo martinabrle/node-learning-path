@@ -13,3 +13,6 @@ npm prune #removes all what's not in the package.json
 npm install jest --save-dev #install a dependency as a dev only dependency
 npm update, npm outdated, npm audit, npm audit fix #...
 node inspect hello-world.js, node inspect-brk hello-world.js  to start in debug mode
+
+#Always use the promises namespace on the built-in modules. You can then use the async and await operators to make code synchronous without blocking program execution.
+#If you need to parse other file types, check out the packages on npmjs.org. For example, you can use the papaparse package for .csv files. You can use the fixy package for fixed-width files.
