@@ -49,8 +49,4 @@ async function main() {
     console.log(salesFiles);
 }
 
-async function main2(){
-
-}
-
 main();
