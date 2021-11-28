@@ -28,6 +28,9 @@ coverage
 # test file output
 *-*-*-feed.json
 
+# Folder info and icon position file on mac
+.DS_store
+
 # totals file output
 totals.txt
 
