@@ -1,7 +1,9 @@
 
 SELECT 'CREATE DATABASE cnainventory' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'cnainventory')\gexec
 
-\connect cnainventory
+--\connect cnainventory
+
+EXEC SQL SET CONNECTION TO cnainventory;
 
 CREATE TABLE IF NOT EXISTS inventory (
     id serial PRIMARY KEY, 

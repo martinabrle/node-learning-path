@@ -35,7 +35,6 @@ resource symbolicname 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
     version: '11'
     createMode: 'Default' //PointInTimeRestore, Replica, GeoRestore
     administratorLogin: serverAdminLogin
-    administratorPassowrd: serverAdminPassword
-    // For remaining properties, see ServerPropertiesForCreate objects
+    administratorLoginPassword: serverAdminPassword
   }
 }
