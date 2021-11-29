@@ -25,4 +25,4 @@ while [ $# -gt 0 ]; do
 done
 
 az deployment sub create --location "westeurope" --template-file ./deployment-rg.bicep --parameters name=$resourcegroup
-az deployment group create --resource-group $resourcegroup --template-file ./deployment.bicep --parameters serverName=$servername serverAdminLogin=$user serverAdminPassword=$password
+az deployment group create --resource-group $resourcegroup --template-file ./deployment-uat.bicep --parameters serverName=$servername serverAdminLogin=$user serverAdminPassword=$password
