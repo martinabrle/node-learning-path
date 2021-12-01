@@ -5,14 +5,14 @@ name: express-postgresql-app-ci-cd
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-    paths:
-      - 'express-postgresql-app/**'    
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'express-postgresql-app/**'
+  # push:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'express-postgresql-app/**'    
+  # pull_request:
+  #   branches: [ main ]
+  #   paths:
+  #     - 'express-postgresql-app/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -39,6 +39,15 @@ jobs:
       - name: Restore project dependencies
         run: npm install
 
+      - name: Generate unique package version
+        run: |
+          origPackageVersion=$(cat ./package.json | jq '.version') |
+          origPackageVersion="${origPackageVersion%\"}" |
+          origPackageVersion="${origPackageVersion#\"}" |
+          packageVersion="${origPackageVersion}.${GITHUB_SHA}" |
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" >package.json |
+          run: echo '::set-output packageVersion="$(packageVersion)"'
+
       - name: Build and validate
         run: npm run build
       
@@ -48,8 +57,9 @@ jobs:
       - name: Create solution archive
         run: npm pack
       
+      
       - name: Upload solution archive to GitHub artefacts
-        run: npm pack
+        run: npm publish
 
   deploy:
       - name: Azure login
