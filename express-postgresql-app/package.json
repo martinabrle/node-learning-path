@@ -1,11 +1,12 @@
 {
-  "name": "express-web-api",
+  "name": "express-postgresql-app",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
+    "build": "eslint ./src",
     "test": "jest",
-    "start": "node ./app.js"
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "jest": "^27.3.1"
+    "jest": "^27.3.1",
+    "eslint": "^8.3.0"
   }
 }

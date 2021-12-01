@@ -1,0 +1,71 @@
+# This is basic workflow supports express-postgresql-app CI/CD pipeline
+
+name: express-postgresql-app-ci-cd
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths:
+      - 'express-postgresql-app/**'    
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'express-postgresql-app/**'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    working-directory: /express-postgresql-app
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate deployment template(s)
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az bicep build --file ./scripts/deployment-uat.bicep
+        
+      - name: Setup node
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+        
+      - name: Restore project dependencies
+        run: npm install
+
+      - name: Build and validate
+        run: npm run build
+      
+      - name: Run unit tests
+        run: npm run test
+      
+      - name: Create solution archive
+        run: npm pack
+      
+      - name: Upload solution archive to GitHub artefacts
+        run: npm pack
+
+  deploy:
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_UAT_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_UAT_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_UAT_SUBSCRIPTION_ID }}
+
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.

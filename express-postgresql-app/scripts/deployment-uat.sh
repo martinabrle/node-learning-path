@@ -1,6 +1,7 @@
 #!/bin/bash
-
-# to create group manually: az group create --location "WestEurope" --name "testpg-rg"
+# helper script for manual deployment
+# call with ./deployment.sh --resourcegroup=*** --servername=*** --user=*** --password=***
+# note to myself: to create a resource group manually: az group create --location "WestEurope" --name "testpg-rg"
 while [ $# -gt 0 ]; do
   case "$1" in
      --resourcegroup=*)
