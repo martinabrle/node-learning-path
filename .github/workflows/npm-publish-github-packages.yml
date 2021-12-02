@@ -32,7 +32,7 @@ jobs:
           origPackageVersion=$(cat ./package.json | jq '.version') |
           origPackageVersion="${origPackageVersion%\"}" |
           origPackageVersion="${origPackageVersion#\"}" |
-          packageVersion="${origPackageVersion}.${{GITHUB_SHA}}" |
+          packageVersion="${origPackageVersion}.${{github.sha}}" |
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json |
           run: echo '::set-output packageVersion="$(packageVersion)"'
         working-directory: "{{$env.working-directory}}"
