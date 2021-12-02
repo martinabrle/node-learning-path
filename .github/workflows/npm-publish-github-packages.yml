@@ -15,8 +15,8 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az bicep build --file ./scripts/deployment-uat.bicep
-      
+            az bicep build --file "{{$env.working-directory}}/scripts/deployment-uat.bicep"
+        
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -25,6 +25,7 @@ jobs:
           
       - name: Restore project dependencies
         run: npm install
+        working-directory: "{{$env.working-directory}}"
       
       - name: Generate unique package version
         run: |
@@ -34,18 +35,22 @@ jobs:
           packageVersion="${origPackageVersion}.${{GITHUB_SHA}}" |
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json |
           run: echo '::set-output packageVersion="$(packageVersion)"'
+        working-directory: "{{$env.working-directory}}"
           
       - name: Build and validate
         run: npm run build
+        working-directory: "{{$env.working-directory}}"
       
       - name: Run unit tests
         run: npm run test
+        working-directory: "{{$env.working-directory}}"
       
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        working-directory: "{{$env.working-directory}}"
 
-  publish-gpr:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -57,7 +62,10 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_UAT_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_UAT_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_UAT_SUBSCRIPTION_ID }}
