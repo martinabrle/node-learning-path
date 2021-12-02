@@ -19,8 +19,12 @@ jobs:
           
       - name: Restore project dependencies
         run: npm install
-      - run: npm ci
-      - run: npm test
+      
+      - name: Build and validate
+        run: npm run build
+      
+      - name: Run unit tests
+        run: npm run test
 
   publish-gpr:
     needs: build
