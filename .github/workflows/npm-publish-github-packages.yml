@@ -20,6 +20,15 @@ jobs:
       - name: Restore project dependencies
         run: npm install
       
+      - name: Generate unique package version
+        run: |
+          origPackageVersion=$(cat ./package.json | jq '.version') |
+          origPackageVersion="${origPackageVersion%\"}" |
+          origPackageVersion="${origPackageVersion#\"}" |
+          packageVersion="${origPackageVersion}.${{GITHUB_SHA}}" |
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json |
+          run: echo '::set-output packageVersion="$(packageVersion)"'
+          
       - name: Build and validate
         run: npm run build
       
