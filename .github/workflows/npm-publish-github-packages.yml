@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Validate deployment template(s)
+      - name: Validate deployment template
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az bicep build --file "{{$env.working-directory}}/scripts/deployment-uat.bicep"
+            az bicep build --file {{$env.working-directory}}/scripts/deployment-uat.bicep
         
       - name: Setup Node.js
         uses: actions/setup-node@v2
