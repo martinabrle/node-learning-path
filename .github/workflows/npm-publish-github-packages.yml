@@ -28,7 +28,6 @@ jobs:
           
       - name: Restore project dependencies
         run: npm install
-        working-directory: "{{$env.working-directory}}"
       
       - name: Generate unique package version
         run: |
@@ -38,20 +37,16 @@ jobs:
           packageVersion="${origPackageVersion}.${{github.sha}}" |
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json |
           run: echo '::set-output packageVersion="$(packageVersion)"'
-        working-directory: "{{$env.working-directory}}"
           
       - name: Build and validate
         run: npm run build
-        working-directory: "{{$env.working-directory}}"
       
       - name: Run unit tests
         run: npm run test
-        working-directory: "{{$env.working-directory}}"
       
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        working-directory: "{{$env.working-directory}}"
 
   deploy:
     needs: build
