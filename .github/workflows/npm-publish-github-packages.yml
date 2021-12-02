@@ -10,7 +10,12 @@ jobs:
       working-directory: ./express-postgresql-app
     steps:
       - uses: actions/checkout@v2
-      
+      - name: test
+        run: |
+          pwd |
+          ls -la
+        working-directory: "{{$env.working-directory}}"
+        
       - name: Validate deployment template
         run: az bicep build --file ./scripts/deployment-uat.bicep
         working-directory: "{{$env.working-directory}}"
