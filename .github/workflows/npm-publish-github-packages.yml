@@ -3,19 +3,19 @@ name: Node.js Package
 on:
   workflow_dispatch
 
+defaults:
+  run:
+    working-directory: ./express-postgresql-app
+    
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./express-postgresql-app
     steps:
       - uses: actions/checkout@v2
       - name: test
         run: |
           pwd |
           ls -la
-        working-directory: "{{$working-directory}}"
-        
         
       - name: Validate deployment template
         run: az bicep build --file ./scripts/deployment-uat.bicep
