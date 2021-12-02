@@ -31,11 +31,13 @@ jobs:
       
       - name: Generate unique package version
         run: |
+          declare origPackageVersion=""
+          declare packageVersion=""
           origPackageVersion=$(cat ./package.json | jq '.version') |
           origPackageVersion="${origPackageVersion%\"}" |
           origPackageVersion="${origPackageVersion#\"}" |
           packageVersion="${origPackageVersion}.${{github.sha}}" |
-          echo $packageVersion
+          echo "New package version: $packageVersion"
           
       - name: Build and validate
         run: npm run build
