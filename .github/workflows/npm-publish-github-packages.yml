@@ -31,8 +31,9 @@ jobs:
       
       - name: Generate unique package version
         run: |
-          declare origPackageVersion=""
-          declare packageVersion=""
+          declare origPackageVersion="" |
+          declare packageVersion="" |
+          cat ./package.json |
           origPackageVersion=$(cat ./package.json | jq '.version') |
           origPackageVersion="${origPackageVersion%\"}" |
           origPackageVersion="${origPackageVersion#\"}" |
