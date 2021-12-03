@@ -39,7 +39,11 @@ jobs:
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.sha}}"
           echo "New package version: $packageVersion"
-          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json
+          echo "transformation test"
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }"
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.json
+          echo "new package"
+          cat ./package.json
           echo '::set-output packageVersion="$(packageVersion)"'
           
       - name: Build and validate
