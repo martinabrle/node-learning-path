@@ -1,5 +1,5 @@
 describe('Math checker', () => {
-    test('should add correctly', () => {
+    test('should add up correctly', () => {
       expect(
         5
         ).toEqual(
