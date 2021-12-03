@@ -39,6 +39,8 @@ jobs:
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.sha}}"
           echo "New package version: $packageVersion"
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json
+          run: echo '::set-output packageVersion="$(packageVersion)"'
           
       - name: Build and validate
         run: npm run build
@@ -63,9 +65,9 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       
-      - name: Azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_UAT_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_UAT_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_UAT_SUBSCRIPTION_ID }}
+      #- name: Azure login
+       # uses: azure/login@v1
+       # with:
+       #   client-id: ${{ secrets.AZURE_UAT_CLIENT_ID }}
+       #   tenant-id: ${{ secrets.AZURE_UAT_TENANT_ID }}
+       #   subscription-id: ${{ secrets.AZURE_UAT_SUBSCRIPTION_ID }}
