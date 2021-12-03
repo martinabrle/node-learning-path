@@ -1,5 +1,5 @@
 {
-  "name": "express-postgresql-app",
+  "name": "@martinabrle/express-postgresql-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,9 +12,14 @@
     "type": "git",
     "url": "git+https://github.com/martinabrle/node-learning-path.git"
   },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "keywords": [
     "api",
-    "database"
+    "database",
+    "express",
+    "postgresql"
   ],
   "author": "",
   "license": "ISC",
