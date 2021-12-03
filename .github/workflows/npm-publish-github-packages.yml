@@ -40,7 +40,7 @@ jobs:
           packageVersion="${origPackageVersion}.${{github.sha}}"
           echo "New package version: $packageVersion"
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }">package.json
-          run: echo '::set-output packageVersion="$(packageVersion)"'
+          echo '::set-output packageVersion="$(packageVersion)"'
           
       - name: Build and validate
         run: npm run build
