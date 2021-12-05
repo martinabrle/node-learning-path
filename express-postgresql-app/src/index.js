@@ -1,7 +1,11 @@
-function whatever(variable1) {
-    if (variable1 == "4")
-        return "4";
-    return 0;
-}
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 3000
 
-whatever("1");
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
