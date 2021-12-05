@@ -1,6 +1,6 @@
 {
   "name": "@martinabrle/express-postgresql-app",
-  "version": "1.0.0",
+  "version": "1.0", //last number will be auto incremented
   "description": "",
   "main": "index.js",
   "scripts": {
