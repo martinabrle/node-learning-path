@@ -54,7 +54,7 @@ jobs:
       - name: Run unit tests
         run: npm run test
       
-      - run: npm publish --tag $github.sha
+      - run: npm publish --tag ${{ env.GITHUB_SHA }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
