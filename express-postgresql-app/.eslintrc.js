@@ -7,6 +7,7 @@ const WARN = 1;
 module.exports = {
   extends: "eslint:recommended",
   env: {
+    node: true,
     es6: true
   },
   overrides: [
