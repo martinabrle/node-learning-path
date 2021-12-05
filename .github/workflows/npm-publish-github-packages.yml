@@ -44,12 +44,12 @@ jobs:
           mv ./package.json ./package.old.json
           mv ./package.new.json ./package.json
           rm ./package.old.json
-          packageFileName="express-postgresql-app-$(packageVersion).zip"'
+          packageFileName="express-postgresql-app-$(packageVersion).zip"
           echo '::set-output PACKAGE_VERSION="$(packageVersion)"'
           echo '::set-output PACKAGE_FILE_NAME="$(packageFileName)"'
           echo "PACKAGE_VERSION=$packageVersion" >> $GITHUB_ENV
           echo "PACKAGE_FILE_NAME=$packageFileName" >> $GITHUB_ENV
-         
+          
       - name: Build and validate
         run: npm run build
       
