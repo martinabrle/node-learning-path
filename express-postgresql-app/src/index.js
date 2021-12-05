@@ -3,3 +3,5 @@ function whatever(variable1) {
         return "4";
     return 0;
 }
+
+whatever("1);
