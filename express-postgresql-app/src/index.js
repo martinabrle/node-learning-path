@@ -4,4 +4,4 @@ function whatever(variable1) {
     return 0;
 }
 
-whatever("1);
+whatever("1");
