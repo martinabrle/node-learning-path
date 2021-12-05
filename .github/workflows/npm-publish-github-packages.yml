@@ -37,7 +37,7 @@ jobs:
           origPackageVersion=$(cat ./package.json | jq '.version')
           origPackageVersion="${origPackageVersion%\"}"
           origPackageVersion="${origPackageVersion#\"}"
-          packageVersion="${origPackageVersion}.${{github.sha}}"
+          packageVersion="${origPackageVersion}.${{github.run_id}}"
           echo "Original package version: : $origPackageVersion"
           echo "New package version: $packageVersion"
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
