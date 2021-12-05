@@ -1,3 +1,4 @@
+/* eslint-env jest */
 describe('Math checker', () => {
     test('should add up correctly', () => {
       expect(
