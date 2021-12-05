@@ -89,10 +89,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
-          filename: "${{ env.PACKAGE_FILE_NAME }}"
+          filename: "./${{ env.PACKAGE_FILE_NAME }}"
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{ env.PACKAGE_FILE_NAME }}"
+          asset_path: "./${{ env.PACKAGE_FILE_NAME }}"
           asset_name: ${{ env.PACKAGE_FILE_NAME }}
           asset_content_type: application/zip
           
