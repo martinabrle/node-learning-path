@@ -69,6 +69,7 @@ jobs:
       - name: Create an application archive
         run: |
          zip -q -m ${{ env.PACKAGE_FILE_NAME }} ./*
+         ls
        
       - name: Create Release
         id: create_release
