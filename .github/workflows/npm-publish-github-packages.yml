@@ -76,7 +76,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "${{ env.PACKAGE_FILE_NAME }}"
-          files: "${{ env.PACKAGE_FILE_NAME }}" 
+          files: package.json 
       
       # No longer supported:
       #- name: Create Release
