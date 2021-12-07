@@ -13,6 +13,7 @@ jobs:
     env:
       PACKAGE_VERSION: "1.0.0"
       PACKAGE_FILE_NAME: "express-postgresql-app.zip"
+      PACKAGE_FILE_NAME_NO_EXT: "express-postgresql-app"
     steps:
       - uses: actions/checkout@v2
         
@@ -78,9 +79,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "${{ steps.get_version_info.PACKAGE_FILE_NAME }}"
-          tag_name: "${{ steps.get_version_info.PACKAGE_FILE_NAME_NO_EXT }}"
-          files: "${{ steps.get_version_info.PACKAGE_FILE_NAME }}"
+          name: ${{ steps.get_version_info.PACKAGE_FILE_NAME }}
+          tag_name: ${{ steps.get_version_info.PACKAGE_FILE_NAME_NO_EXT }}
+          files: ${{ steps.get_version_info.PACKAGE_FILE_NAME }}
           token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
 
       # No longer supported:
