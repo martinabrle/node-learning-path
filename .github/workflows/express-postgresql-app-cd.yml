@@ -11,13 +11,12 @@ jobs:
 
     steps:
       #- uses: actions/checkout@v2
-
-      - name: Run a one-line script
-        run: |
-          printenv
-          echo "/files1/${github.ref##*refs/tags\/}"
-
-      - name: Run a multi-line script
+      
+      - name: Get release
+        id: get_release
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//
+  
+      - name: Display version
         run: |
           echo Add other actions to build,
-          echo test, and deploy your project.
+          echo ${{ steps.get_release.outputs.VERSION }}
