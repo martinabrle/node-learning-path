@@ -43,10 +43,10 @@ jobs:
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.run_number}}"
           
-          echo "Original package version: : $origPackageVersion"
-          echo "New package version: $packageVersion"
-          
-          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.json
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
+          mv ./package.json ./package.old.json
+          mv ./package.new.json ./package.json
+          rm ./package.old.json
           
           packageFileName="express-postgresql-app-${packageVersion}.zip"
           packageFileNameNoExt="express-postgresql-app-${packageVersion}"
