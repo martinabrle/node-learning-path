@@ -31,6 +31,7 @@ jobs:
       - name: Generate a unique package version
         id: version_number
         run: |
+          git tag --points-at HEAD
           declare origPackageVersion=""
           declare packageVersion=""
           declare packageFileName=""
