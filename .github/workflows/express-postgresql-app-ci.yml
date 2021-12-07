@@ -42,19 +42,14 @@ jobs:
           origPackageVersion="${origPackageVersion%\"}"
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.run_number}}"
+          
           echo "Original package version: : $origPackageVersion"
           echo "New package version: $packageVersion"
-          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
-          mv ./package.json ./package.old.json
-          mv ./package.new.json ./package.json
-          rm ./package.old.json
+          
+          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.json
           
           packageFileName="express-postgresql-app-${packageVersion}.zip"
           packageFileNameNoExt="express-postgresql-app-${packageVersion}"
-          
-          echo "PACKAGE_VERSION=$packageVersion"
-          echo "PACKAGE_FILE_NAME=$packageFileName"
-          echo "PACKAGE_FILE_NAME_NO_EXT=$packageFileNameNoExt"
           
           echo "PACKAGE_VERSION=$packageVersion" >> $GITHUB_ENV
           echo "PACKAGE_FILE_NAME=$packageFileName" >> $GITHUB_ENV
