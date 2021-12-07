@@ -31,15 +31,17 @@ jobs:
       - name: Generate a unique package version
         id: version_number
         run: |
-          git tag
+          echo "${{GITHUB_REF#refs/*/}}"
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+        
           declare origPackageVersion=""
           declare packageVersion=""
           declare packageFileName=""
+          declare packageFileNameNoExt=""
           origPackageVersion=$(cat ./package.json | jq '.version')
           origPackageVersion="${origPackageVersion%\"}"
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.run_number}}"
-          packageVersionLong="${origPackageVersion}.${{github.run_number}}-${{github.sha}}"
           echo "Original package version: : $origPackageVersion"
           echo "New package version: $packageVersion"
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
@@ -48,22 +50,14 @@ jobs:
           rm ./package.old.json
           packageFileName="express-postgresql-app-${packageVersion}.zip"
           packageFileNameNoExt="express-postgresql-app-${packageVersion}"
-          packageFileNameLong="express-postgresql-app-${packageVersionLong}.zip"
-          packageFileNameLongNoExt="express-postgresql-app-${packageVersionLong}"
           
           echo '::set-output PACKAGE_VERSION="$(packageVersion)"'
-          echo '::set-output PACKAGE_VERSION_LONG="$(packageVersionLong)"'
           echo '::set-output PACKAGE_FILE_NAME="$(packageFileName)"'
           echo '::set-output PACKAGE_FILE_NAME_NO_EXT="$(packageFileNameNoExt)"'
-          echo '::set-output PACKAGE_FILE_NAME_LONG="$(packageFileNameLong)"'
-          echo '::set-output PACKAGE_FILE_NAME_LONG_NO_EXT="$(packageFileNameLongNoExt)"'
           
           echo "PACKAGE_VERSION=$packageVersion" >> $GITHUB_ENV
-          echo "PACKAGE_VERSION_LONG=$packageVersionLong" >> $GITHUB_ENV
           echo "PACKAGE_FILE_NAME=$packageFileName" >> $GITHUB_ENV
           echo "PACKAGE_FILE_NAME_NO_EXT=$packageFileNameNoExt" >> $GITHUB_ENV
-          echo "PACKAGE_FILE_NAME_LONG=$packageFileNameLong" >> $GITHUB_ENV
-          echo "PACKAGE_FILE_NAME_LONG_NO_EXT=$packageFileNameLongNoExt" >> $GITHUB_ENV
           
       - name: Build and validate
         run: npm run build
