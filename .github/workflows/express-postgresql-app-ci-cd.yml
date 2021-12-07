@@ -48,6 +48,7 @@ jobs:
           mv ./package.json ./package.old.json
           mv ./package.new.json ./package.json
           rm ./package.old.json
+          
           packageFileName="express-postgresql-app-${packageVersion}.zip"
           packageFileNameNoExt="express-postgresql-app-${packageVersion}"
           
@@ -85,6 +86,7 @@ jobs:
           name: "${{ env.PACKAGE_FILE_NAME }}"
           tag_name: "${{ env.PACKAGE_FILE_NAME_NO_EXT }}"
           files: "${{ env.PACKAGE_FILE_NAME }}"
+          token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
       
       # No longer supported:
       #- name: Create Release
