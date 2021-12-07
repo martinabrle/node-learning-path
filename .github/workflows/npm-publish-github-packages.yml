@@ -75,7 +75,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: "${{ env.PACKAGE_FILE_NAME }}"
+          name: "${{ env.PACKAGE_FILE_NAME }}"
+          tag_name: "{{$github.sha}}"
           files: "./express-postgresql-app/${{ env.PACKAGE_FILE_NAME }}"
       
       # No longer supported:
