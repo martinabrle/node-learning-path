@@ -1,4 +1,4 @@
-name: express-postgresql-appi-ci-cd
+name: express-postgresql-app-ci-cd
 
 on:
   workflow_dispatch
