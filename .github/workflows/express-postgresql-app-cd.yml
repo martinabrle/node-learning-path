@@ -3,7 +3,7 @@ name: express-postgresql-app-cd
 on:
   release:
     types:
-      - published
+      - released
       
 jobs:
   deploy:
