@@ -38,6 +38,7 @@ jobs:
           origPackageVersion="${origPackageVersion%\"}"
           origPackageVersion="${origPackageVersion#\"}"
           packageVersion="${origPackageVersion}.${{github.run_number}}"
+          packageVersionLong="${origPackageVersion}.${{github.run_number}}-${{github.sha}}"
           echo "Original package version: : $origPackageVersion"
           echo "New package version: $packageVersion"
           cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
@@ -45,9 +46,12 @@ jobs:
           mv ./package.new.json ./package.json
           rm ./package.old.json
           packageFileName="express-postgresql-app-${packageVersion}.zip"
+          
           echo '::set-output PACKAGE_VERSION="$(packageVersion)"'
+          echo '::set-output PACKAGE_VERSION_LONG="$(packageVersionLong)"'
           echo '::set-output PACKAGE_FILE_NAME="$(packageFileName)"'
           echo "PACKAGE_VERSION=$packageVersion" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION_LONG=$packageVersionLong" >> $GITHUB_ENV
           echo "PACKAGE_FILE_NAME=$packageFileName" >> $GITHUB_ENV
           
       - name: Build and validate
@@ -75,8 +79,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "${{ env.PACKAGE_FILE_NAME }}"
-          tag_name: ${GITHUB_SHA}
+          name: "${{ env.PACKAGE_FILE_NAME_LONG }}"
+          tag_name: "${{ env.PACKAGE_FILE_NAME_LONG }}"
           files: "${{ env.PACKAGE_FILE_NAME }}"
       
       # No longer supported:
