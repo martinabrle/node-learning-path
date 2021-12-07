@@ -31,8 +31,6 @@ jobs:
       - name: Generate a unique package version
         id: get_version_info
         run: |
-          echo "${GITHUB_REF}"
-          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
         
           declare origPackageVersion=""
           declare packageVersion=""
@@ -84,8 +82,7 @@ jobs:
           tag_name: "${{ steps.get_version_info.PACKAGE_FILE_NAME_NO_EXT }}"
           files: "${{ steps.get_version_info.PACKAGE_FILE_NAME }}"
           token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
-          
-      echo ${{ steps.get_release.outputs.VERSION }}
+
       # No longer supported:
       #- name: Create Release
       #  id: create_release
