@@ -68,7 +68,7 @@ jobs:
 
       - name: Create an application archive
         run: |
-         zip -q -m "./${{ env.PACKAGE_FILE_NAME }}" ./
+         zip -q -m "../${{ env.PACKAGE_FILE_NAME }}" ../express-postgresql-app
          ls -la
          pwd
       
@@ -77,7 +77,7 @@ jobs:
         with:
           name: "${{ env.PACKAGE_FILE_NAME }}"
           tag_name: "{{$github.sha}}"
-          files: "./express-postgresql-app/${{ env.PACKAGE_FILE_NAME }}"
+          files: "${{ env.PACKAGE_FILE_NAME }}"
       
       # No longer supported:
       #- name: Create Release
