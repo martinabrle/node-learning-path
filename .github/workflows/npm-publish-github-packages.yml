@@ -76,7 +76,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: "${{ env.PACKAGE_FILE_NAME }}"
-          tag_name: "{{$github.sha}}"
+          tag_name: ${GITHUB_SHA}
           files: "${{ env.PACKAGE_FILE_NAME }}"
       
       # No longer supported:
