@@ -52,14 +52,14 @@ jobs:
           packageFileName="express-postgresql-app-${packageVersion}.zip"
           packageFileNameNoExt="express-postgresql-app-${packageVersion}"
           
-          echo 'PACKAGE_VERSION="{$packageVersion}"'
-          echo 'PACKAGE_FILE_NAME="{$packageFileName}"'
-          echo 'PACKAGE_FILE_NAME_NO_EXT="{$packageFileNameNoExt}"'
+          echo "PACKAGE_VERSION={$packageVersion}"
+          echo "PACKAGE_FILE_NAME={$packageFileName}"
+          echo "PACKAGE_FILE_NAME_NO_EXT={$packageFileNameNoExt}"
           
-          echo 'PACKAGE_VERSION="{$packageVersion}"' >> $GITHUB_ENV
-          echo 'PACKAGE_FILE_NAME="{$packageFileName}"' >> $GITHUB_ENV
-          echo 'PACKAGE_FILE_NAME_NO_EXT="{$packageFileNameNoExt}"' >> $GITHUB_ENV
-          
+          echo "PACKAGE_VERSION={$packageVersion}" >> $GITHUB_ENV
+          echo "PACKAGE_FILE_NAME={$packageFileName}" >> $GITHUB_ENV
+          echo "PACKAGE_FILE_NAME_NO_EXT={$packageFileNameNoExt}" >> $GITHUB_ENV
+
       - name: Build and validate
         run: npm run build
       
