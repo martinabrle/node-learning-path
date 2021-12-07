@@ -13,7 +13,7 @@ jobs:
       #- uses: actions/checkout@v2
 
       - name: Run a one-line script
-        run: ls -la
+        run: echo "{{ $GITHUB_JOB }}"
 
       - name: Run a multi-line script
         run: |
