@@ -14,7 +14,7 @@ jobs:
       
       - name: Get release
         id: get_release
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
   
       - name: Display version
         run: |
