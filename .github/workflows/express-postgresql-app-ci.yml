@@ -127,7 +127,7 @@ jobs:
       - name: Download release
         run: |
           echo ${{needs.build.outputs.RELEASE_VERSION}}
-          curl -sL -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -H "Accept:application/octet-stream" "https://github.com/martinabrle/node-learning-path/releases/download/express-postgresql-app-2.0.26/express-postgresql-app-2.0.26.zip" -o ./output.zip
+          curl -sL -H "Accept:application/octet-stream" https://github.com/martinabrle/node-learning-path/releases/download/express-postgresql-app-2.0.26/express-postgresql-app-2.0.26.zip -o ./express-postgresql-app-2.0.26.zip
       
       #- name: Azure login
        # uses: azure/login@v1
