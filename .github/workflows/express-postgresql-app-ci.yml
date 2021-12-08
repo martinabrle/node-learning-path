@@ -79,14 +79,14 @@ jobs:
 
       - name: Create an application archive
         run: |
-         zip -q -m "../${{ env.RELEASE_FILE_NAME }}" ./* .*
+         zip -q -m "${{ env.RELEASE_FILE_NAME }}" ./*
       
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           name: ${{ env.RELEASE_FILE_NAME }}
           tag_name: ${{ env.RELEASE_NAME }}
-          files: ${{ env.RELEASE_FILE_NAME }}
+          files: "./express-postgresql-app/${{ env.RELEASE_FILE_NAME }}"
           token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
           
   deploy:
@@ -108,7 +108,7 @@ jobs:
           repo: "martinabrle/node-learning-path"
           version: "tags/${{needs.build.outputs.RELEASE_NAME}}"
           file: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
-          target: "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
+          target: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Azure login
