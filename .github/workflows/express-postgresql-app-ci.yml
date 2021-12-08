@@ -119,9 +119,14 @@ jobs:
       - name: Unpack deployment
         run: echo "Hello"
         
-      - name: Unpack deployment
-        run: unzip ${{needs.build.outputs.RELEASE_FILE_NAME}}
-      
       - name: Check downloaded files
         run: ls -la
+      
+      - name: Current directory
+        run: pwd
+      
+      - name: Unpack deployment
+        run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
+      
+
           
