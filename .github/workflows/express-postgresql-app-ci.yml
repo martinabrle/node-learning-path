@@ -111,8 +111,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_UAT_CREDENTIALS }}
       
+      - name: Unpack deployment
+        run: unzip "${{needs.build.outputs.RELEASE_FILE_NAME}}"
+      
       - name: Check downloaded files
-        run: |
-          pwd
-          ls -la
+        run: ls -la
           
