@@ -2,14 +2,13 @@ name: express-postgresql-app-ci
 
 on:
   workflow_dispatch
-
-defaults:
-  run:
-    working-directory: ./express-postgresql-app
     
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./express-postgresql-app
     outputs:
       RELEASE_VERSION: ${{ steps.get_version_info.outputs.RELEASE_VERSION }}
       RELEASE_NAME: ${{ steps.get_version_info.outputs.RELEASE_NAME }}    
