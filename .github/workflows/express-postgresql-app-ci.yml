@@ -36,7 +36,6 @@ jobs:
       - name: Generate a unique package version
         id: get_version_info
         run: |
-        
           declare releaseOrigVersion=""
           declare releaseVersion=""
           declare releaseName=""
@@ -133,8 +132,11 @@ jobs:
           target: "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Check downloaded file(s)
-        run: ls -la
+      - name: Check downloaded files
+        run: |
+          pwd
+          ls -la
+          
       #- name: Azure login
        # uses: azure/login@v1
        # with:
