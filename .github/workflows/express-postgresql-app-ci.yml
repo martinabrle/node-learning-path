@@ -117,7 +117,7 @@ jobs:
           creds: ${{ secrets.AZURE_UAT_CREDENTIALS }}
 
       - name: Unpack deployment
-        run: exho "Hello"
+        run: echo "Hello"
         
       - name: Unpack deployment
         run: unzip ${{needs.build.outputs.RELEASE_FILE_NAME}}
