@@ -21,8 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         
-      - name: Validate deployment template(s)
-        run: az bicep build --file ./scripts/deployment-uat.bicep
+      #- name: Validate deployment template(s)
+      #  run: az bicep build --file ./scripts/deployment-uat.bicep
         
       - name: Setup Node.js
         uses: actions/setup-node@v2
