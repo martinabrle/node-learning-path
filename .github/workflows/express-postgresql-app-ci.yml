@@ -10,10 +10,14 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      RELEASE_VERSION: ${{ steps.get_version_info.outputs.RELEASE_VERSION }}
+      RELEASE_NAME: ${{ steps.get_version_info.outputs.RELEASE_NAME }}    
+      RELEASE_FILE_NAME: ${{ steps.get_version_info.outputs.RELEASE_FILE_NAME }}    
     env:
-      PACKAGE_VERSION: "2.0.0"
-      PACKAGE_FILE_NAME: "express-postgresql-app.zip"
-      PACKAGE_FILE_NAME_NO_EXT: "express-postgresql-app"
+      RELEASE_VERSION: "2.0.0"
+      RELEASE_NAME: "express-postgresql-app.zip"
+      RELEASE_FILE_NAME: "express-postgresql-app"
     steps:
       - uses: actions/checkout@v2
         
@@ -33,28 +37,32 @@ jobs:
         id: get_version_info
         run: |
         
-          declare origPackageVersion=""
-          declare packageVersion=""
-          declare packageFileName=""
-          declare packageFileNameNoExt=""
+          declare releaseOrigVersion=""
+          declare releaseVersion=""
+          declare releaseName=""
+          declare releaseFileName=""
           
-          origPackageVersion=$(cat ./package.json | jq '.version')
-          origPackageVersion="${origPackageVersion%\"}"
-          origPackageVersion="${origPackageVersion#\"}"
-          packageVersion="${origPackageVersion}.${{github.run_number}}"
+          releaseOrigVersion=$(cat ./package.json | jq '.version')
+          releaseOrigVersion="${releaseOrigVersion%\"}"
+          releaseOrigVersion="${releaseOrigVersion#\"}"
+          releaseVersion="${releaseOrigVersion}.${{github.run_number}}"
           
-          cat ./package.json | jq ". |= . + { \"version\": \"${packageVersion}\" }" > ./package.new.json
+          cat ./package.json | jq ". |= . + { \"version\": \"${releaseVersion}\" }" > ./package.new.json
           mv ./package.json ./package.old.json
           mv ./package.new.json ./package.json
           rm ./package.old.json
           
-          packageFileName="express-postgresql-app-${packageVersion}.zip"
-          packageFileNameNoExt="express-postgresql-app-${packageVersion}"
+          releaseName="express-postgresql-app-${releaseVersion}"
+          releaseFileName="express-postgresql-app-${releaseVersion}.zip"
           
-          echo "PACKAGE_VERSION=$packageVersion" >> $GITHUB_ENV
-          echo "PACKAGE_FILE_NAME=$packageFileName" >> $GITHUB_ENV
-          echo "PACKAGE_FILE_NAME_NO_EXT=$packageFileNameNoExt" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=$releaseVersion" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$releaseName" >> $GITHUB_ENV
+          echo "RELEASE_FILE_NAME=$releaseFileName" >> $GITHUB_ENV
 
+          run: echo "::set-output name=RELEASE_VERSION::$releaseVersion"
+          run: echo "::set-output name=RELEASE_NAME::$releaseName"
+          run: echo "::set-output name=RELEASE_FILE_NAME::$releaseFileName"
+          
       - name: Build and validate
         run: npm run build
       
@@ -78,9 +86,9 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ env.PACKAGE_FILE_NAME }}
-          tag_name: ${{ env.PACKAGE_FILE_NAME_NO_EXT }}
-          files: ${{ env.PACKAGE_FILE_NAME }}
+          name: ${{ env.RELEASE_FILE_NAME }}
+          tag_name: ${{ env.RELEASE_NAME }}
+          files: ${{ env.RELEASE_FILE_NAME }}
           token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
 
       # No longer supported:
@@ -116,11 +124,14 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
+      - name: Download release
+        run: |
+          echo ${{needs.build.outputs.RELEASE_VERSION}}
+          curl -sL \
+               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Accept:application/octet-stream"
+               "https://github.com/martinabrle/node-learning-path/releases/download/express-postgresql-app-2.0.24/express-postgresql-app-2.0.24.zip"
+               -o ./express-postgresql-app-2.0.24.zip
       
       #- name: Azure login
        # uses: azure/login@v1
