@@ -59,9 +59,9 @@ jobs:
           echo "RELEASE_NAME=$releaseName" >> $GITHUB_ENV
           echo "RELEASE_FILE_NAME=$releaseFileName" >> $GITHUB_ENV
 
-          run: echo "::set-output name=RELEASE_VERSION::$releaseVersion"
-          run: echo "::set-output name=RELEASE_NAME::$releaseName"
-          run: echo "::set-output name=RELEASE_FILE_NAME::$releaseFileName"
+          echo "::set-output name=RELEASE_VERSION::$releaseVersion"
+          echo "::set-output name=RELEASE_NAME::$releaseName"
+          echo "::set-output name=RELEASE_FILE_NAME::$releaseFileName"
           
       - name: Build and validate
         run: npm run build
