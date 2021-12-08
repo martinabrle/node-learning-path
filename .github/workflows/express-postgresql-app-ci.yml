@@ -125,9 +125,13 @@ jobs:
       packages: write
     steps:
       - name: Download release
-        run: |
-          echo ${{needs.build.outputs.RELEASE_VERSION}}
-          curl -sL -H "Accept:application/octet-stream" https://github.com/martinabrle/node-learning-path/releases/download/express-postgresql-app-2.0.26/express-postgresql-app-2.0.26.zip -o ./express-postgresql-app-2.0.26.zip
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: "martinabrle/node-learning-path"
+          version: "tags/${{needs.build.outputs.RELEASE_NAME}}"
+          file: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
+          target: "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       #- name: Azure login
        # uses: azure/login@v1
