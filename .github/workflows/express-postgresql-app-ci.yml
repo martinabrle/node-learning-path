@@ -102,6 +102,12 @@ jobs:
           target: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
           token: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Unpack deployment
+        run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
+      
+      - name: Check downloaded files
+        run: ls -la
+      
       - name: Azure login
         uses: azure/login@v1
         with:
@@ -116,18 +122,4 @@ jobs:
       - name: Deploy Azure resources
         run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
 
-
-      - name: Unpack deployment
-        run: echo "Hello"
-        
-      - name: Check downloaded files
-        run: ls -la
       
-      - name: Current directory
-        run: pwd
-      
-      - name: Unpack deployment
-        run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
-      
-
-          
