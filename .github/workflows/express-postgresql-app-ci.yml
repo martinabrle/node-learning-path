@@ -106,7 +106,7 @@ jobs:
         run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
       
       - name: Check downloaded files
-        run: ls -la
+        run: ls -la ./scripts/
       
       - name: Azure login
         uses: azure/login@v1
