@@ -123,7 +123,7 @@ jobs:
         run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
 
       - name: Install PostgreSQL client
-      - run: |
+        run: |
           apt-get update
           apt-get install --yes --no-install-recommends postgresql-client
       
