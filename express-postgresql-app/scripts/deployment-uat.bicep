@@ -4,7 +4,7 @@ param serverAdminLogin string
 @secure()
 param serverAdminPassword string
 
-resource symbolicname 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
+resource postgresql_server 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
   name: serverName
   location: resourceGroup().location
   tags: {
@@ -36,5 +36,23 @@ resource symbolicname 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
     createMode: 'Default' //PointInTimeRestore, Replica, GeoRestore
     administratorLogin: serverAdminLogin
     administratorLoginPassword: serverAdminPassword
+  }
+}
+
+resource postgresql_server_AllowAllWindowsAzureIps 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
+  parent: postgresql_server
+  name: 'AllowAllWindowsAzureIps'
+  properties: {
+    startIpAddress: '0.0.0.0'
+    endIpAddress: '0.0.0.0'
+  }
+}
+
+resource postgresql_server_ClientIPAddress 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
+  parent: postgresql_server
+  name: 'CurrentClientIPAddress_CICD'
+  properties: {
+    startIpAddress: '2.30.99.244'
+    endIpAddress: '2.30.99.244'
   }
 }
