@@ -108,10 +108,10 @@ jobs:
           creds: ${{ secrets.AZURE_UAT_CREDENTIALS }}
 
       - name: Set default Azure subscription
-        run: az account set -s ${{ AZURE_UAT_SUBSCRIPTION }}
+        run: az account set -s ${{ secrets.AZURE_UAT_SUBSCRIPTION_ID }}
       
       - name: Create Azure resource group
-        run: az deployment sub create --location ${{ AZURE_UAT_LOCATION }}--template-file ./scripts/deployment-rg.bicep --parameters name=${{ secrets.AZURE_UAT_RESOURCE_GROUP }}
+        run: az deployment sub create --location ${{ secrets.AZURE_UAT_LOCATION }}--template-file ./scripts/deployment-rg.bicep --parameters name=${{ secrets.AZURE_UAT_RESOURCE_GROUP }}
 
       - name: Deploy Azure resources
         run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
