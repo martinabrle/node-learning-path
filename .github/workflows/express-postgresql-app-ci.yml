@@ -79,7 +79,7 @@ jobs:
 
       - name: Create an application archive
         run: |
-         zip -q -m "${{ env.RELEASE_FILE_NAME }}" ./*
+         zip -r -q -m "${{ env.RELEASE_FILE_NAME }}" .
       
       - name: Release
         uses: softprops/action-gh-release@v1
