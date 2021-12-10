@@ -135,4 +135,6 @@ jobs:
           export PGPASSWORD=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
           psql --host="${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com" --port=5432 --username="${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }}" --no-password --dbname=postgres --file=./scripts/db.sql
           
+      - name: Deploy app
+        run: az webapp deployment source config-zip --resource-group "${{ secrets.AZURE_UAT_RESOURCE_GROUP }}" --name "${{ secrets.AZURE_UAT_APP_SERVICE_NAME }}" --src zipFilePathLocation
         
