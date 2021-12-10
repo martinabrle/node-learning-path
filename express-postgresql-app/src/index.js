@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-/*eslint node/no-process-env: "off"*/
 const port = process.env.PORT || 3000;
 
 function isAuthorized(req,res, next) {
