@@ -3,6 +3,7 @@ param serverName string
 param serverAdminLogin string
 @secure()
 param serverAdminPassword string
+
 param appServicePlanName string
 param appServiceName string
 
@@ -62,6 +63,9 @@ resource postgreSQLServer_ClientIPAddress 'Microsoft.DBforPostgreSQL/servers/fir
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
   name: appServicePlanName
   location: resourceGroup().location
+  dependsOn: [
+    postgreSQLServer
+  ]
   properties: {
     reserved: true
   }
@@ -73,6 +77,9 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
 
 resource appService 'Microsoft.Web/sites@2021-02-01' = {
   name: appServiceName
+  dependsOn: [
+    appServicePlan
+  ]
   location: resourceGroup().location
   properties: {
     serverFarmId: appServicePlan.id
