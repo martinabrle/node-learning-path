@@ -88,6 +88,7 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
       scmType: 'None' 
     }
   }
+  /*
   resource appServicePort 'config' = {
     name: 'web'
     properties: {
@@ -98,5 +99,28 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
         }
       ]
     }
+  }*/
+}
+
+resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
+  parent: appService
+  name: 'web'
+  kind: 'string'
+  properties: {
+    appSettings: [
+      {
+        name: 'PORT'
+        value: '80'
+      }
+    ]
+  }
+}
+
+resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
+  parent: appService
+  name: 'appsettings'
+  kind: 'string'
+  properties: {
+        SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
   }
 }
