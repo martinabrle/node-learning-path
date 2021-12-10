@@ -139,5 +139,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: "${{ secrets.AZURE_UAT_APP_SERVICE_NAME }}"
-          package: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
+          package: "${{ needs.build.outputs.RELEASE_FILE_NAME }}"
         
