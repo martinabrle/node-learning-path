@@ -124,8 +124,7 @@ jobs:
 
       - name: Install PostgreSQL client
         run: |
-          apt-get update
-          apt-get install --yes --no-install-recommends postgresql-client
+          sudo apt-get install --yes --no-install-recommends postgresql-client
       
       - name: Create DB if it does not exist
         run: |
