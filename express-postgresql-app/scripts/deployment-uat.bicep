@@ -3,8 +3,10 @@ param serverName string
 param serverAdminLogin string
 @secure()
 param serverAdminPassword string
+param appServicePlanName string
+param appServiceName string
 
-resource postgresql_server 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
+resource postgreSQLServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
   name: serverName
   location: resourceGroup().location
   tags: {
@@ -39,8 +41,8 @@ resource postgresql_server 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
   }
 }
 
-resource postgresql_server_AllowAllWindowsAzureIps 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
-  parent: postgresql_server
+resource postgreSQLServer_AllowAllWindowsAzureIps 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
+  parent: postgreSQLServer
   name: 'AllowAllWindowsAzureIps'
   properties: {
     startIpAddress: '0.0.0.0'
@@ -48,11 +50,34 @@ resource postgresql_server_AllowAllWindowsAzureIps 'Microsoft.DBforPostgreSQL/se
   }
 }
 
-resource postgresql_server_ClientIPAddress 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
-  parent: postgresql_server
+resource postgreSQLServer_ClientIPAddress 'Microsoft.DBforPostgreSQL/servers/firewallRules@2017-12-01' = {
+  parent: postgreSQLServer
   name: 'CurrentClientIPAddress_CICD'
   properties: {
     startIpAddress: '2.30.99.244'
     endIpAddress: '2.30.99.244'
+  }
+}
+
+resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
+  name: appServicePlanName
+  location: resourceGroup().location
+  properties: {
+    reserved: true
+  }
+  sku: {
+    name: 'F1'
+  }
+  kind: 'linux'
+}
+
+resource appService 'Microsoft.Web/sites@2021-02-01' = {
+  name: appServiceName
+  location: resourceGroup().location
+  properties: {
+    serverFarmId: appServicePlan.id
+    siteConfig: {
+      linuxFxVersion: 'node|16-lts'
+    }
   }
 }
