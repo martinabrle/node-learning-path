@@ -6,12 +6,10 @@ const WARN = 1;
 
 module.exports = {
   extends: "eslint:recommended",
-  globals: {
-    "PORT": "80"
-  },
   env: {
     node: true,
-    es6: true
+    es6: true,
+    PORT: '80'
   },
   overrides: [
     {
