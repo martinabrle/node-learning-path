@@ -7,7 +7,7 @@ const WARN = 1;
 module.exports = {
   extends: "eslint:recommended",
   globals: {
-    "port": "80"
+    "PORT": "80"
   },
   env: {
     node: true,
