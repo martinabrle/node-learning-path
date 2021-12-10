@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 function isAuthorized(req,res, next) {
     const auth = req.headers.authorization;
