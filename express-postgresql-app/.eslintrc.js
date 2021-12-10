@@ -4,9 +4,7 @@
 const ERROR = 2;
 const WARN = 1;
 
-const defaultEnv = { port: '80' };
-
-module.exports = (env = defaultEnv) => {
+module.exports = {
   extends: "eslint:recommended",
   env: {
     node: true,
