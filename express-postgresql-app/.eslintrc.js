@@ -8,7 +8,8 @@ module.exports = {
   extends: "eslint:recommended",
   env: {
     node: true,
-    es6: true
+    es6: true,
+    process.port: 3003
   },
   overrides: [
     {
