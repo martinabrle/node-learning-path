@@ -123,7 +123,7 @@ jobs:
         run: az deployment sub create --location ${{ secrets.AZURE_UAT_LOCATION }} --template-file ./scripts/deployment-rg.bicep --parameters name=${{ secrets.AZURE_UAT_RESOURCE_GROUP }}
 
       - name: Deploy Azure resources
-        run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
+        run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }} appServicePlanName=${{ secrets.AZURE_UAT_APP_SERVICE_PLAN_NAME }} appServicePlanName=${{ secrets.AZURE_UAT_APP_SERVICE_NAME }}
 
       - name: Create DB if it does not exist
         run: |
