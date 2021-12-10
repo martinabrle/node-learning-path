@@ -85,6 +85,18 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
     serverFarmId: appServicePlan.id
     siteConfig: {
       linuxFxVersion: 'node|16-lts'
+      scmType: 'None' 
+    }
+  }
+  resource appServicePort 'config' = {
+    name: 'web'
+    properties: {
+      appSettings: [
+        {
+          name: 'PORT'
+          value: '80'
+        }
+      ]
     }
   }
 }
