@@ -106,7 +106,10 @@ jobs:
         run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
       
       - name: Check downloaded files
-        run: ls -la ./scripts/
+        run: |
+          pwd
+          ls -la
+          ls -la ./scripts/
       
       - name: Azure login
         uses: azure/login@v1
@@ -122,13 +125,13 @@ jobs:
       - name: Deploy Azure resources
         run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters serverName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverAdminLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} serverAdminPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
 
-      # Already installed on GitHub action runners
-      #- name: Install PostgreSQL client
-      #  run: |
-      #    sudo apt-get install --yes --no-install-recommends postgresql-client
-      
       - name: Create DB if it does not exist
         run: |
           export PGPASSWORD=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
           psql --host="${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com" --port=5432 --username="${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }}" --no-password --dbname=postgres -tc "SELECT 1 FROM pg_database WHERE datname = '${{ secrets.AZURE_UAT_DB_NAME }}'" | grep -q 1 || psql --host="${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com" --port=5432 --username="${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }}" --no-password  --dbname=postgres -c "CREATE DATABASE ${{ secrets.AZURE_UAT_DB_NAME }}"
+        
+      - name: Run DB scripts
+        run: |
+          psql --host="${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com" --port=5432 --username="${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }}" --no-password --dbname=postgres --file=./scripts/db.sql
+          
         
