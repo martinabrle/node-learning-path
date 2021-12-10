@@ -9,7 +9,7 @@ module.exports = {
   env: {
     node: true,
     es6: true,
-    process.port: 3003
+    port: 3003
   },
   overrides: [
     {
