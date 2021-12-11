@@ -3,10 +3,12 @@ name: express-postgresql-app-validation
 on:
   pull_request:
     branches:
-      - main      
+      - main
+    paths:
+      - 'express-postgresql-app/**'
     
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     defaults:
       run:
