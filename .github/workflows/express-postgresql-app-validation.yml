@@ -1,0 +1,33 @@
+name: express-postgresql-app-ci
+
+on:
+  pull_request
+    paths:
+      - './express-postgresql-app/**'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./express-postgresql-app
+    steps:
+      - uses: actions/checkout@v2
+        
+      - name: Validate deployment template(s)
+        run: az bicep build --file ./scripts/deployment-uat.bicep
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com
+          
+      - name: Restore all project dependencies
+        run: npm install
+      
+      - name: Build and validate
+        run: npm run build
+      
+      - name: Run unit tests
+        run: npm run test
