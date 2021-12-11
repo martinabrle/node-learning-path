@@ -2,8 +2,8 @@ name: express-postgresql-app-validation
 
 on:
   pull_request:
-    paths:
-      - './express-postgresql-app/**'
+    branches:
+      - main      
     
 jobs:
   build:
