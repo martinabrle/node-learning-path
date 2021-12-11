@@ -2,6 +2,8 @@ name: express-postgresql-app-ci
 
 on:
   pull_request
+    branches:
+      - main      
     paths:
       - './express-postgresql-app/**'
     
