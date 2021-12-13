@@ -1,4 +1,4 @@
-name: express-postgresql-app-ci
+name: express-postgresql-app-ci-cd
 
 on:
   workflow_dispatch
@@ -81,26 +81,22 @@ jobs:
         run: |
          zip -r -q -m "${{ env.RELEASE_FILE_NAME }}" .
       
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: 'Upload build artifact'
+        uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.RELEASE_FILE_NAME }}
-          tag_name: ${{ env.RELEASE_NAME }}
-          files: "./express-postgresql-app/${{ env.RELEASE_FILE_NAME }}"
-          token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
+          name: ${{ env.RELEASE_NAME }}
+          path: ${{ env.RELEASE_FILE_NAME }}
+          retention-days: 5
           
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download release
-        uses: dsaltares/fetch-gh-release-asset@master
+    
+      - name: Download build artefacts
+        uses: actions/download-artifact@v2
         with:
-          repo: "martinabrle/node-learning-path"
-          version: "tags/${{needs.build.outputs.RELEASE_NAME}}"
-          file: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
-          target: "${{needs.build.outputs.RELEASE_FILE_NAME}}"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{needs.build.outputs.RELEASE_NAME}}
       
       - name: Unpack deployment
         run: unzip "./${{needs.build.outputs.RELEASE_FILE_NAME}}"
@@ -140,4 +136,12 @@ jobs:
         with:
           app-name: "${{ secrets.AZURE_UAT_APP_SERVICE_NAME }}"
           package: "${{ needs.build.outputs.RELEASE_FILE_NAME }}"
-        
+      
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.RELEASE_FILE_NAME }}
+          tag_name: ${{ env.RELEASE_NAME }}
+          files: "./express-postgresql-app/${{ env.RELEASE_FILE_NAME }}"
+          token: ${{ secrets.PAT_TOKEN }} # To trigger other workflows
+          
