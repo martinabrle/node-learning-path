@@ -1,7 +1,12 @@
 name: express-postgresql-app-ci-cd
 
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - main
+    paths:
+      - 'express-postgresql-app/**'  
+  workflow_dispatch:
     
 jobs:
   build:
