@@ -1,4 +1,4 @@
-name: express-postgresql-app-cd
+name: express-postgresql-app-release
 
 on:
   release:
