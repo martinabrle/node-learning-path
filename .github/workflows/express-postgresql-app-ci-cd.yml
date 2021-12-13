@@ -85,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.RELEASE_NAME }}
-          path: ./*
+          path: ./express-postgresql-app/${{ env.RELEASE_FILE_NAME }}
           retention-days: 5
           
   deploy:
