@@ -47,6 +47,15 @@ app.post('/inventory', async (req, res) => {
     console.error(error);
   }});
 
+
+app.get('/inventory/', async (req, res) => {
+  try {
+      const inventory = await Inventory.findAll( { attributes: ['id', 'name', 'quantity', 'date'] });
+      res.json({ inventory });
+    } catch(error) {
+      console.error(error);
+    }});
+    
 app.get('/inventory/:id', async (req, res) => {
    const id = req.params.id
    try {
