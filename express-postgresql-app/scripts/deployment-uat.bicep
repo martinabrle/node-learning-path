@@ -105,7 +105,7 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
     }
   }*/
 }
-
+//weird
 resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
   parent: appService
   name: 'web'
