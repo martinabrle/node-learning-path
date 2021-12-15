@@ -1,6 +1,7 @@
 const appPort = process.env.PORT || 3000;
 const dbServer = process.env.DB_SERVER || "**********.postgres.database.azure.com";
 const dbServerPort = process.env.DB_SERVER_PORT || 5432;
+const dbName = process.env.DB_NAME || "**********";
 const dbLogin = process.env.DB_LOGIN || "**********";
 const dbPassword = process.env.DB_PASSWORD || "**********";
 
@@ -32,19 +33,17 @@ app.listen(appPort, () => console.log(`Sample app is listening on port ${appPort
 
 app.post('/inventory', async (req, res) => {
   try {
-    const newItem = new Inventory(req.body)
-    await newItem.save()
+    const newItem = new Inventory(req.body);
+    await newItem.save();
     res.json({ inventory: newItem })
   } catch(error) {
-    console.error(error)
+    console.error(error);
   }});
 
 app.get('/inventory/:id', async (req, res) => {
    const id = req.params.id
    try {
-      const inventory = await Inventory.findAll({
-        attributes: ['id', 'name', 'quantity', 'date'],
-        where: { id: id }});
+      const inventory = await Inventory.findAll( { attributes: ['id', 'name', 'quantity', 'date'], where: { id: id }});
       res.json({ inventory });
     } catch(error) {
       console.error(error);
