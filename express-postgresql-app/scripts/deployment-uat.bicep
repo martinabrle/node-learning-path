@@ -34,7 +34,7 @@ resource postgreSQLServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
     infrastructureEncryption: 'Disabled'
     minimalTlsVersion: 'TLSEnforcementDisabled'
     publicNetworkAccess: 'Enabled'
-    sslEnforcement: 'Enabled'
+    sslEnforcement: 'Disabled'
     storageProfile: {
       backupRetentionDays: 7
       geoRedundantBackup: 'Disabled'
