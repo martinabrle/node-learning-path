@@ -41,8 +41,8 @@ resource postgreSQLServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
     }
     version: '11'
     createMode: 'Default' //PointInTimeRestore, Replica, GeoRestore
-    administratorLogin: serverAdminLogin
-    administratorLoginPassword: serverAdminPassword
+    administratorLogin: dbServerLogin
+    administratorLoginPassword: dbServerPassword
   }
 }
 
