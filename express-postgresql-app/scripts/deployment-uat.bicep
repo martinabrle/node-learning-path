@@ -1,14 +1,18 @@
-param serverName string
+param dbServerName string
+param dbServerPort string
+param dbName string
+
 @secure()
-param serverAdminLogin string
+param dbServerLogin string
 @secure()
-param serverAdminPassword string
+param dbServerPassword string
 
 param appServicePlanName string
 param appServiceName string
+param appServicePort string
 
 resource postgreSQLServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
-  name: serverName
+  name: dbServerName
   location: resourceGroup().location
   tags: {
     workload: 'test'
@@ -110,7 +114,7 @@ resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
     appSettings: [
       {
         name: 'PORT'
-        value: '80'
+        value: appServicePort
       }
     ]
   }
@@ -122,5 +126,10 @@ resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
   kind: 'string'
   properties: {
         SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+        DB_SERVER: dbServerName
+        DB_NAME: dbName
+        DB_SERVER_PORT: dbServerPort
+        DB_LOGIN: dbServerLogin
+        DB_PASSWORD: dbServerPassword
   }
 }

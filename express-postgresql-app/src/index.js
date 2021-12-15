@@ -1,42 +1,51 @@
-const express = require("express");
+const appPort = process.env.PORT || 3000;
+const dbServer = process.env.DB_SERVER || "**********.postgres.database.azure.com";
+const dbServerPort = process.env.DB_SERVER_PORT || 5432;
+const dbLogin = process.env.DB_LOGIN || "**********";
+const dbPassword = process.env.DB_PASSWORD || "**********";
+
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize(`postgres://${dbLogin}%40${dbServer}:${dbPassword}@${dbServer}:${dbServerPort}/${dbName}`);
+
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+const Inventory = sequelize.define('inventory', {
+    id: { type: Sequelize.INTEGER, allowNull: false, primaryKey: true },
+    name: { type: Sequelize.STRING, allowNull: false },
+    quantity: { type: Sequelize.INTEGER },
+    date: { type: Sequelize.DATEONLY, defaultValue: Sequelize.NOW }
+  },  {
+    freezeTableName: true,
+    timestamps: false
+  });
+
+const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
 
-function isAuthorized(req,res, next) {
-    const auth = req.headers.authorization;
-    if (auth === "supersecret") {
-        next();
-    } else {
-        res.status(401);
-        res.send("Not permitted!");
-    }
-}
-app.get('/', (req, res) => res.send('Hello world!!!'));
+app.use(express.json());
+app.listen(appPort, () => console.log(`Sample app is listening on port ${appPort}!`));
 
-app.get('/users', isAuthorized, (req,res) => {
-    res.json([{
-      id: 1,
-      name: 'User Userson'
-    }])
-  });
-  
-app.get("/products", (req,res) => {
-    const products = [
-    {
-      id: 1,
-      name: "hammer",
-    },
-    {
-      id: 2,
-      name: "screwdriver",
-    },
-    {
-      id: 3,
-      name: "wrench",
-    }
-   ];
-  
-   res.json(products);
-  });
+app.post('/inventory', async (req, res) => {
+  try {
+    const newItem = new Inventory(req.body)
+    await newItem.save()
+    res.json({ inventory: newItem })
+  } catch(error) {
+    console.error(error)
+  }});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.get('/inventory/:id', async (req, res) => {
+   const id = req.params.id
+   try {
+      const inventory = await Inventory.findAll({
+        attributes: ['id', 'name', 'quantity', 'date'],
+        where: { id: id }});
+      res.json({ inventory });
+    } catch(error) {
+      console.error(error);
+    }});
