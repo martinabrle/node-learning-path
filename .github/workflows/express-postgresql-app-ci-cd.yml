@@ -126,7 +126,7 @@ jobs:
         run: az deployment sub create --location ${{ secrets.AZURE_UAT_LOCATION }} --template-file ./scripts/deployment-rg.bicep --parameters name=${{ secrets.AZURE_UAT_RESOURCE_GROUP }}
 
       - name: Deploy Azure resources
-        run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters dbServerName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} serverPort=${{ secrets.AZURE_UAT_DB_SERVER_PORT }} dbServerPort=5432 dbName=${{ secrets.AZURE_UAT_DB_NAME }} dbServerLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} dbServerPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }} appServicePlanName=${{ secrets.AZURE_UAT_APP_SERVICE_PLAN_NAME }} appServiceName=${{ secrets.AZURE_UAT_APP_SERVICE_NAME }} appServicePort=${{ secrets.AZURE_UAT_APP_SERVICE_PORT }}
+        run: az deployment group create --resource-group ${{ secrets.AZURE_UAT_RESOURCE_GROUP }} --template-file ./scripts/deployment-uat.bicep --parameters dbServerName=${{ secrets.AZURE_UAT_DB_SERVER_NAME }} dbServerPort=${{ secrets.AZURE_UAT_DB_SERVER_PORT }} dbName=${{ secrets.AZURE_UAT_DB_NAME }} dbServerLogin=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }} dbServerPassword=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }} appServicePlanName=${{ secrets.AZURE_UAT_APP_SERVICE_PLAN_NAME }} appServiceName=${{ secrets.AZURE_UAT_APP_SERVICE_NAME }} appServicePort=${{ secrets.AZURE_UAT_APP_SERVICE_PORT }}
 
       - name: Create DB if it does not exist
         run: |
