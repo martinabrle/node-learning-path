@@ -77,12 +77,6 @@ jobs:
           rm -rf node_modules
           npm install --production
         
-      #- name: Publish a package
-      #  skipping publishing a package; (as this app is not a package)
-      #  run: npm publish --tag {{$github.sha}}
-      #  env:
-      #    NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
       - name: Create an application archive
         run: |
          zip -r -q -m "${{ env.RELEASE_FILE_NAME }}" .
