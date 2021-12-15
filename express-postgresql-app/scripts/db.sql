@@ -9,3 +9,4 @@ INSERT INTO inventory (id, name, quantity) VALUES (1, 'yogurt', 200) ON CONFLICT
 INSERT INTO inventory (id, name, quantity) VALUES (2, 'milk', 100) ON CONFLICT DO NOTHING;
 INSERT INTO inventory (id, name, quantity) VALUES (3, 'spinach', 400) ON CONFLICT DO NOTHING;
 INSERT INTO inventory (id, name, quantity) VALUES (4, 'carrots', 100) ON CONFLICT DO NOTHING;
+INSERT INTO inventory (id, name, quantity) VALUES (5, 'cucumber', 100) ON CONFLICT DO NOTHING;
