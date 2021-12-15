@@ -5,6 +5,20 @@ const dbName = process.env.DB_NAME || "**********";
 const dbLogin = process.env.DB_LOGIN || "**********";
 const dbPassword = process.env.DB_PASSWORD || "**********";
 
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+app.listen(appPort, () => console.log(`Sample app is listening on port ${appPort}!`));
+
+app.get('/', async (req, res) => {
+  try {
+     res.send(`postgres://${dbLogin}%40${dbServer}:${dbPassword}@${dbServer}:${dbServerPort}/${dbName}`);
+   } catch(error) {
+     console.error(error);
+   }});
+
+/*
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(`postgres://${dbLogin}%40${dbServer}:${dbPassword}@${dbServer}:${dbServerPort}/${dbName}`);
 
@@ -47,4 +61,4 @@ app.get('/inventory/:id', async (req, res) => {
       res.json({ inventory });
     } catch(error) {
       console.error(error);
-    }});
+    }});*/
