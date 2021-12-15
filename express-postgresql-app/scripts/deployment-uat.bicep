@@ -11,6 +11,7 @@ param appServicePlanName string
 param appServiceName string
 param appServicePort string
 
+
 resource postgreSQLServer 'Microsoft.DBforPostgreSQL/servers@2017-12-01' = {
   name: dbServerName
   location: resourceGroup().location
