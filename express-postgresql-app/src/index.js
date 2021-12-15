@@ -5,13 +5,6 @@ const dbName = process.env.DB_NAME || "**********";
 const dbLogin = process.env.DB_LOGIN || "**********";
 const dbPassword = process.env.DB_PASSWORD || "**********";
 
-app.get('/', async (req, res) => {
-  try {
-     res.send(`Example application here`);
-   } catch(error) {
-     console.error(error);
-   }});
-
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(`postgres://${dbLogin}%40${dbServer}:${dbPassword}@${dbServer}:${dbServerPort}/${dbName}`);
 
@@ -37,6 +30,13 @@ const app = express();
 
 app.use(express.json());
 app.listen(appPort, () => console.log(`Sample app is listening on port ${appPort}!`));
+
+app.get('/', async (req, res) => {
+  try {
+     res.send(`Example application here`);
+   } catch(error) {
+     console.error(error);
+   }});
 
 app.post('/inventory', async (req, res) => {
   try {
