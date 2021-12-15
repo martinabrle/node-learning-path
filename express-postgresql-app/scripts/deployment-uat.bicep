@@ -128,6 +128,7 @@ resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
     ]
   }
 }
+
 resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
   parent: appService
   name: 'appsettings'
