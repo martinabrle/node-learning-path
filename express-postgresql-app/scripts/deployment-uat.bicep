@@ -1,3 +1,4 @@
+param dbServerDomain string
 param dbServerName string
 param dbServerPort string
 param dbName string
@@ -107,7 +108,7 @@ resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
       }
       {
         name: 'DB_SERVER'
-        value: dbServerName
+        value: '${dbServerName}.${dbServerDomain}'
       }
       {
         name: 'DB_SERVER_PORT'
