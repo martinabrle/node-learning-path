@@ -126,6 +126,7 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
       ]
     }
   }
+}
   /*
   resource appServiceSettingSCM 'config@2021-02-01' = {
     name: 'appsettings'
