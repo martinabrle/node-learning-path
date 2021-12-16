@@ -96,6 +96,15 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
   }
 }
 
+resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
+  parent: appService
+  name: 'appsettings'
+  kind: 'string'
+  properties: {
+      SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+  }
+}
+
 resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
   parent: appService
   name: 'web'
@@ -127,14 +136,5 @@ resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
         value: dbServerPassword
       }
     ]
-  }
-}
-
-resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
-  parent: appService
-  name: 'appsettings'
-  kind: 'string'
-  properties: {
-      SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
   }
 }
