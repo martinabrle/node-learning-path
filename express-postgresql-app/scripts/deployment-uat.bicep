@@ -94,8 +94,47 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
       scmType: 'None' 
     }
   }
+  resource appServiceSettingPARMS 'config@2021-02-01' = {
+    name: 'web'
+    kind: 'string'
+    properties: {
+      appSettings: [
+        {
+          name: 'PORT'
+          value: appServicePort
+        }
+        {
+          name: 'DB_SERVER'
+          value: '${dbServerName}.${dbServerDomain}'
+        }
+        {
+          name: 'DB_SERVER_PORT'
+          value: dbServerPort
+        }
+        {
+          name: 'DB_NAME'
+          value: dbName
+        }
+        {
+          name: 'DB_LOGIN'
+          value: dbServerLogin
+        }
+        {
+          name: 'DB_PASSWORD'
+          value: dbServerPassword
+        }
+      ]
+    }
+  }
+  /*
+  resource appServiceSettingSCM 'config@2021-02-01' = {
+    name: 'appsettings'
+    kind: 'string'
+    properties: {
+        SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+    }
+  }
 }
-
 resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
   parent: appService
   name: 'appsettings'
@@ -104,11 +143,12 @@ resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
       SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
   }
 }
-
+*/
+/*
 resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
   parent: appService
   name: 'web'
-  kind: 'array'
+  kind: 'string'
   properties: {
     appSettings: [
       {
@@ -137,4 +177,4 @@ resource appServiceSettingPORT 'Microsoft.Web/sites/config@2021-02-01' = {
       }
     ]
   }
-}
+}*/
