@@ -135,6 +135,6 @@ resource appServiceSettingSCM 'Microsoft.Web/sites/config@2021-02-01' = {
   name: 'appsettings'
   kind: 'string'
   properties: {
-        SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
+      SCM_DO_BUILD_DURING_DEPLOYMENT: 'false'
   }
 }
