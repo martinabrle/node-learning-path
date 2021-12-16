@@ -123,6 +123,10 @@ resource appService 'Microsoft.Web/sites@2021-02-01' = {
           name: 'DB_PASSWORD'
           value: dbServerPassword
         }
+        {
+          name: 'SCM_DO_BUILD_DURING_DEPLOYMENT'
+          value: 'false'
+        }
       ]
     }
   }
