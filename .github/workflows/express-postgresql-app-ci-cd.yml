@@ -130,7 +130,7 @@ jobs:
       - name: Run DB scripts
         run: |
           export PGPASSWORD=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN_PASSWORD }}
-          psql --host=${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com --port=${{ secrets.AZURE_UAT_DB_SERVER_PORT }} --username=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }} --no-password --dbname=postgres --file=./scripts/db.sql
+          psql --host=${{ secrets.AZURE_UAT_DB_SERVER_NAME }}.postgres.database.azure.com --port=${{ secrets.AZURE_UAT_DB_SERVER_PORT }} --username=${{ secrets.AZURE_UAT_DB_SERVER_LOGIN }}@${{ secrets.AZURE_UAT_DB_SERVER_NAME }} --no-password --dbname=${{ secrets.AZURE_UAT_DB_NAME }} --file=./scripts/db.sql
           
       - name: Deploy to AppService
         uses: azure/webapps-deploy@v2
